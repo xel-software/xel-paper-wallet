@@ -1,6 +1,22 @@
-# XEL Paper Wallet Generator
+# XEL Paper Wallet
 
-XEL Paper Wallet Generator is way to create a new XEL account.
+Paper Wallet is a lightweight, downloadable tool for the xel blockchain platform. It is designed to keep your passphrase (private key) safe by letting you create accounts, sign transactions, and perform other transactions on xel chain in a secure, offline environment.
+
+# Paper Wallet easily allows you to:
+
+ - Create an account
+ - Print an account Paper Wallet
+ - Generate QR codes for your account and passphrase
+ - Sign Unsigned Transaction Bytes with your passphrase (air gap)
+ - Prove ownership of your account (generate tokens from passphrase)
+
+ In other words, this is ideal for making cold storage accounts.
+
+Why is Paper Wallet the most secure way to store your cryptocurrency?
+
+Private keys stored on a device connected to the internet are vulnerable to network-based theft. With Paper Wallet you can safely store your XEL, and make transactions on the xel network, without ever exposing your private key (account passphrase) to potentially vulnerable networks.
+
+The safest way to store cryptocurrency is by using a paper wallet; the safest way to make transactions is by signing them offline and then broadcasting the Signed Transaction Bytes online. Hackers cannot steal your passphrase or your digital assets when you are not connected to the internet.
 
 # how to use it ?
 
@@ -18,6 +34,13 @@ store your passphrase and account id in a safe location (print it).
 https://xel-software.github.io/xel-paper-wallet/
 
 # changelog
+
+### Version 1
+
+- GUI improved
+- Generate QR codes for your account and passphrase
+- Sign Unsigned Transaction Bytes with your passphrase (air gap)
+- Prove ownership of your account (generate tokens from passphrase)
 
 ### Version 0.3
 
@@ -39,3 +62,7 @@ Some part of source code was taken from:
 
 - https://github.com/jonesnxt/jay-client
 - https://github.com/jeromeetienne/jquery-qrcode
+
+# Support Developers
+
+XEL-MAYC-ZZ3Y-YX56-6NH52
