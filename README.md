@@ -35,7 +35,7 @@ store your passphrase and account id in a safe location (print it).
 
 # changelog
 
-### Version 1
+### Version 1 Prototipe 
 
 - GUI improved
 - Generate QR codes for your account and passphrase
