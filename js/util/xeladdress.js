@@ -1,10 +1,27 @@
+/******************************************************************************
+ * Copyright © 2013-2016 The Nxt Core Developers.                             *
+ * Copyright © 2016-2018 Jelurida IP B.V.                                     *
+ *                                                                            *
+ * See the LICENSE.txt file at the top-level directory of this distribution   *
+ * for licensing information.                                                 *
+ *                                                                            *
+ * Unless otherwise agreed in a custom licensing agreement with Jelurida B.V.,*
+ * no part of this software, including this file, may be copied, modified,    *
+ * propagated, or distributed except according to the terms contained in the  *
+ * LICENSE.txt file.                                                          *
+ *                                                                            *
+ * Removal or modification of this copyright notice is prohibited.            *
+ *                                                                            *
+ ******************************************************************************/
+
 /*
     NXT address class, extended version (with error guessing).
 
     Version: 1.0, license: Public Domain, coder: NxtChg (admin@nxtchg.com).
 */
 
-function NxtAddress() {
+function xeladdress(moduleContext) {
+	var context = (moduleContext === undefined ? NRS : moduleContext);
 	var codeword = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 	var syndrome = [0, 0, 0, 0, 0];
 
@@ -256,7 +273,7 @@ function NxtAddress() {
 	} //__________________________
 
 	this.toString = function() {
-		var out = 'XEL-';
+		var out = context.getAccountMask();
 
 		for (var i = 0; i < 17; i++) {
 			out += alphabet[codeword[cwmap[i]]];
@@ -311,7 +328,7 @@ function NxtAddress() {
 
 		adr = adr.replace(/(^\s+)|(\s+$)/g, '').toUpperCase();
 
-		if (adr.indexOf('XEL-') == 0) adr = adr.substr(4);
+		if (adr.indexOf(context.getAccountMask()) == 0) adr = adr.substr(context.constants.ACCOUNT_MASK_LEN);
 
 		if (adr.match(/^\d{1,20}$/g)) // account id
 		{
@@ -420,4 +437,8 @@ function NxtAddress() {
 
 		return d;
 	}
+}
+
+if (isNode) {
+    module.exports = xeladdress;
 }
