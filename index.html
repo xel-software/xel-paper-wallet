@@ -5,32 +5,50 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="all">
     <link rel="stylesheet" href="css/sigbro.css" type="text/css" media="all">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>XEL Paper Wallet Generator v1.0</title>
+    <title>Paper Wallet</title>
   </head>
 <body>
-	<style>
+<section class="jumbotron text-center">
+       <div class="container">
+         <p><img style="width: 300px;" src="img/elastic-logo.png"></p>
+         <h1 class="jumbotron-heading">Paper Wallet v 1.0</h1>
+         <h3>
+         <a href="https://github.com/xel-community/xel-paper-wallet/archive/master.zip"><small><i class="fas fa-download"></i> download from github</small></a>
+       </div>
+</section>
 
+  <style>
+  .input-group {
+  margin-bottom: 10px;
+  }
+  #qrcode {
+  padding-left: 10px;
+  }
+  :root {
+  --jumbotron-padding-y: 3rem;
+  }
+  .jumbotron {
+  padding-top: var(--jumbotron-padding-y);
+  padding-bottom: var(--jumbotron-padding-y);
+  margin-bottom: 0;
+  background-color: #fff;
+  }
+  @media (min-width: 768px) {
+  .jumbotron {
+  padding-top: calc(var(--jumbotron-padding-y) * 2);
+  padding-bottom: calc(var(--jumbotron-padding-y) * 2);
+  }
+  }
+  .jumbotron p:last-child {
+  margin-bottom: 0;
+  }
+  .jumbotron-heading {
+  font-weight: 300;
+  }
+  .jumbotron .container {
+  max-width: 40rem;
+  }
 	</style>
-
-	<header class='d-print-none'>
-		<nav class="navbar navbar-expand-md navbar-dark bg-black box-shadow fixed-top container">
-      <a href="#" class="navbar-brand d-flex align-items-center">
-        <img style="width: 100px;" src=img/3400x3400.png />
-      </a>
-      <button class="navbar-toggler p-0 border-0" type="button" data-toggle="collapse" data-target="#sigbro" aria-controls="sigbro" aria-expanded="false" >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse navbar-right" id="sigbro">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item"> <a class="nav-link" href="#" data-url='Account'>Account</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="#" data-url='Token'>Create Token</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="#" data-url='QR'>Create QR</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="#" data-url='Sign'>Sign OFFLINE</a> </li>
-        </ul>
-      </div> <!-- /collapse -->
-		</nav>
-  </header>
-
   <main role="main">
     <!-- ************************************************* -->
     <div class="xel-space d-print-none"></div>
