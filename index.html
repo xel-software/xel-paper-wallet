@@ -1,145 +1,443 @@
-<!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
-    <link rel="icon" type="image/x-icon" class="js-site-favicon" href="img/16x16.png">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/fontawesome.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="css/sigbro.css" type="text/css" media="all">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>XEL Paper Wallet Generator v0.3</title>
+    <title>Paper Wallet</title>
   </head>
-  <body>
-    <style>
-      .input-group {
-      margin-bottom: 10px;
-      }
-      #qrcode {
-      padding-left: 10px;
-      }
-      :root {
-      --jumbotron-padding-y: 3rem;
-      }
-      .jumbotron {
-      padding-top: var(--jumbotron-padding-y);
-      padding-bottom: var(--jumbotron-padding-y);
-      margin-bottom: 0;
-      background-color: #fff;
-      }
-      @media (min-width: 768px) {
-      .jumbotron {
-      padding-top: calc(var(--jumbotron-padding-y) * 2);
-      padding-bottom: calc(var(--jumbotron-padding-y) * 2);
-      }
-      }
-      .jumbotron p:last-child {
-      margin-bottom: 0;
-      }
-      .jumbotron-heading {
-      font-weight: 300;
-      }
-      .jumbotron .container {
-      max-width: 40rem;
-      }
-      footer {
-      padding-top: 3rem;
-      padding-bottom: 3rem;
-      }
-      footer p {
-      margin-bottom: .25rem;
-      }
-    </style>
-    <main role="main">
-      <section class="jumbotron text-center">
-        <div class="container">
-          <p><img src="img/elastic-logo.png"></p>
-          <h1 class="jumbotron-heading">paper wallet generator</h1>
-          <h3>
-          <a href="https://github.com/xel-community/xel-paper-wallet/archive/master.zip"><small><i class="fas fa-download"></i> download from github</small></a>
-        </div>
-      </section>
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <div role="tabpanel" class="tab-pane" id="accountTab">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="nbxtridge-newpassphrase-help">your passphrase</span>
-                </div>
-                <input type="text" class="form-control" aria-describedby="nxtbridge-newpassphrase-help" id="nxtbridge-newpassphrase">
-                <button class="btn btn-primary" type="button" id="generateNewPassphrase">generate</button>
-              </div>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="nbxtridge-publickey-help">your public key</span>
-                </div>
-                <input type="text" class="form-control" aria-describedby="nxtbridge-publickey-help" id="publickey" readonly>
-              </div>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="nbxtridge-account-help">your account id</span>
-                </div>
-                <input type="text" class="form-control" aria-describedby="nxtbridge-account-help" id="account" readonly>
-              </div>
-              <div>
-                <div class="input-group">
-                  <span class="input-group-btn">
-                    <div id="qrcode2"></div>
-                  </span>
-                </div>
-                <button class="btn btn-primary" type="button" onclick="printPage()"><i class="fas fa-print"></i> print this page</button>
-                <br></br>
-              </div>
+<body>
+	<style>
+
+	</style>
+
+	<header class='d-print-none'>
+		<nav class="navbar navbar-expand-md navbar-dark bg-black box-shadow fixed-top container">
+      <a href="#" class="navbar-brand d-flex align-items-center">
+        <img style="width: 100px;" src=img/3400x3400.png />
+      </a>
+      <button class="navbar-toggler p-0 border-0" type="button" data-toggle="collapse" data-target="#sigbro" aria-controls="sigbro" aria-expanded="false" >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse navbar-right" id="sigbro">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item"> <a class="nav-link" href="#" data-url='Account'>Account</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="#" data-url='Token'>Create Token</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="#" data-url='QR'>Create QR</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="#" data-url='Sign'>Sign OFFLINE</a> </li>
+        </ul>
+      </div> <!-- /collapse -->
+		</nav>
+  </header>
+
+  <main role="main">
+    <!-- ************************************************* -->
+    <div class="xel-space d-print-none"></div>
+    <a name="Account"> </a>
+    <!-- ************************************************* -->
+    <section class="d-print-none">
+      <div class="container xel-section">
+        <h1 class="display-3">Account</h1>
+
+        <div class="row d-print-none"><div class="col-12">
+          <div class="btn-group" role="group" aria-label="button group for generate QR code">
+            <button class="btn btn-outline-secondary" type="button" id="xel-random-passphrase">Create New</button>
+            <button class="btn btn-outline-secondary" type="button" id="xel-generate-account">I have an account</button>
+          </div>
+        </div></div>
+
+        <div class="row"><div class="col-12 d-none" id="xel-generate-own-account-tip">
+          <p style="margin-top: 10px;">
+            Enter your secret passphrase.<br>
+            <strong>ALWAYS</strong> use a passphrase with at least 30 random characters, or a string of random words at least 30 characters in length.
+          </p>
+        </div></div>
+
+        <div class="row d-print-none"><div class="col-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Your passphrase: </span>
+            </div>
+            <input class="form-control" type="password" id="xel-new-passphrase">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" id="xel-new-passphrase-switcher" type="button">Show</button>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <!--
-          <div class="col-3">
-            <p><b>Make Paper Wallets to Keep Your XEL Addresses Safe.</b><br>
-              For long-term storage of XELs (or giving as gifts) it's not safe to store your XELs in an exchange or online wallet. These types of sites are regularly hacked. Even keeping a live wallet on your own computer can be risky.
-            </p>
-            <p>
-              <b>Be your own bank.</b><br>
-              By printing out your own tamper-resistant XEL wallets and generating your own addresses, you can minimize your exposure to hackers as well as untrustworthy people in your home or office. Just transfer your XELs into your new wallets, and use common sense to keep your wallets safe the way you would jewels and ordinary cash. Or give them away!
-            </p>
+        </div></div>
+        <div class="row d-print-none"><div class="col-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Your account: </span>
+            </div>
+            <input class="form-control" type="text" id="xel-new-account" readonly>
           </div>
-        -->
-          <div class="col">
-            <div class="alert alert-danger" role="alert">Keep your passphrase safe at all times! We recommend you to use KeePass2 or similar software to store your passphrase(s) on your PC. <strong>Do not use online storage. It is not safe!</strong></div>
-            <div class="alert alert-warning" role="alert">
-              An account you create with this offline paper wallet generator is an account which exists on the xel blockchain.
-              <br>Your xel account is yours, not ours.
-              <br>XEL team cannot be held responsible if you loose your xel passphrase or if a 3rd party gets a hold of it, or for any other consequence of you having lost it.
-              <br>YOUR XEL PASSPHRASE IS THE ONLY WAY TO ACCESS YOUR XEL ACCOUNT. KEEP IT SAFE! We do NOT have access to your passphrase, so we CANNOT keep backups of your passphrase for you.
+        </div></div>
+        <div class="row d-print-none"><div class="col-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Your public key: </span>
+            </div>
+            <input class="form-control" type="text" id="xel-new-publickey" readonly>
+          </div>
+        </div></div>
+
+        <div class="row"><div class="col-12" style="text-align: right;">
+          <div class="btn-group" role="group" aria-label="button group for generate QR code">
+            <button type="button" class="btn btn-outline-secondary" id="xel-clear-new-section">Clear</button>
+            <button type="button" class="btn btn-outline-secondary" id="xel-print-new-section">PRINT</button>
+          </div>
+        </div></div>
+
+
+      </div> <!-- /container -->
+    </section>
+
+    <section class="d-print-none d-none" id="xel-new-section">
+      <div class="container xel-section">
+
+        <div class="row">
+          <div class="col-6"><div class="card" style="border-color: white; ">
+            <div class="card-header text-center" style="border-color: white; background-color: white; ">PUBLIC</div>
+            <div class="card-body text-center" id="xel-new-account-qrcode"></div>
+            <div class="card-footer text-center" style="border-color: white; background-color: white; ">Your public account<br>You can give this to others.</div>
+          </div></div>
+
+          <div class="col-6"><div class="card" style="border-color: white; ">
+            <div class="card-header text-center" style="border-color: white; background-color: white; ">SECRET</div>
+            <div class="card-body text-center" id="xel-new-pass-qrcode"></div>
+            <div class="card-footer text-center" style="border-color: white; background-color: white; ">KEEP SECRET!<br>Scan with SIGBRO MOBILE</div>
+          </div></div>
+        </div>
+
+        <br>
+
+        <div class="row d-print-none"><div class="col-12">
+          <p style="text-align: center;">
+          New accounts must announce their existence to the network.<br> Either send an outgoing transaction OR have someone include your public key in a transaction.
+          </p>
+          <p style="text-align: center;">
+            We highly recommend that you print this paperwallet. Store it in a safe place. If you lose your passphrase you can <strong>NOT</strong> recover it.
+          </p>
+        </div></div>
+
+
+      </div> <!-- /container -->
+    </section>
+
+    <section class="d-none" id="xel-section-print-new-section">
+      <div class="container-fluid xel-section">
+        <div class="row">
+
+          <div class="col-4"><div class="card">
+            <div class="card-header text-center"><strong id="xel-new-print-account">XEL-...</strong></div>
+            <div class="card-body text-center" id="xel-new-print-account-qrcode"></div>
+          </div></div>
+
+          <div class="col-4"><div class="card">
+            <div class="card-header text-center"><strong class="text-center">SECRET passphrase</strong></div>
+            <div class="card-body text-center" id="xel-new-print-account-passphrase-qrcode"></div>
+          </div></div>
+
+        </div> <!-- /row -->
+
+        <div class="row">
+
+          <div class="col-4"><div class="card">
+            <div class="card-header text-center"><strong>Public section</strong></div>
+            <div class="card-body">
+              Your public account<br>You can give this to others<br><br>
+              <p><strong>Public key:</strong></p>
+              <p id="xel-new-print-account-public-key"></p>
+            </div>
+          </div></div>
+
+          <div class="col-4"><div class="card">
+            <div class="card-header text-center"><strong>Private section</strong></div>
+            <div class="card-body">
+              KEEP SECRET!<br>Store your passphrase in a safe place - make sure you NEVER lose it!
+              <p style="margin-top: 10px;"><strong>SECRET passphrase:</strong></p>
+              <p id="xel-new-print-account-passphrase"></p>
+            </div>
+          </div></div>
+
+        </div> <!-- /row -->
+      </div> <!-- /container -->
+    </section>
+
+    <!-- ************************************************* -->
+    <hr class='xel-hr' class="d-print-none" />
+    <a name="Token"> </a>
+    <!-- ************************************************* -->
+    <section class="d-print-none">
+      <div class="container xel-section">
+        <h1 class="display-3">Create Token
+        <a href="#" id="xel-token-help-sign"><span class="badge badge-dark sigbro-help-sign">?</span></a>
+        </h1>
+
+        <div class="row d-none" id="xel-token-help"><div class="col-12">
+          <p>
+          <strong>Tokens can be used to prove ownership of XEL accounts</strong><br>
+          1. Enter your passphrase<br>
+          2. Enter the text you want to sign<br>
+          3. Click ‘SIGN’<br>
+          4. Copy the token and paste it anywhere to display confirmed ownership of your accounts
+          <br><br>
+          <i>A new token is generated every time you click SIGN. All generated tokens are valid. <br>Tokens can be validated using any node, like wallet.xel.org . No one can decrypt your passphrase from the token.</i>
+
+          </p>
+        </div></div>
+
+
+        <div class="row"><div class="col-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Your passphrase: </span>
+            </div>
+            <input class="form-control" type="password" id="xel-token-passphrase">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" id="xel-token-passphrase-switcher" type="button">Show</button>
+            </div>
+
+          </div>
+
+
+        </div></div>
+
+        <div class="row"><div class="col-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Specific key for token: </span>
+            </div>
+            <input class="form-control" type="text" id="xel-token-site">
+          </div>
+        </div></div>
+
+        <div class="row"><div class="col-12" style="text-align: right;">
+          <div class="btn-group" role="group" aria-label="button group for generate token">
+            <button type="button" class="btn btn-outline-secondary" id="xel-clear-token-section">Clear</button>
+            <button type="button" class="btn btn-outline-secondary" id="xel-token-generate">SIGN</button>
+          </div>
+        </div></div>
+
+        <div class="row"><div class="col-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text xel-input-group-textarea">Your token: </span>
+            </div>
+            <textarea class="form-control xel-textarea" aria-label="Your token" id="xel-token-text" readonly></textarea>
+          </div>
+        </div></div>
+
+
+      </div> <!-- /container -->
+    </section>
+
+    <!-- ************************************************* -->
+    <hr class='xel-hr' class="d-print-none" />
+    <a name="QR"> </a>
+    <!-- ************************************************* -->
+    <section class="d-print-none">
+      <div class="container xel-section">
+        <h1 class="display-3">Create QR
+        <a href="#" id="xel-qr-help-sign"><span class="badge badge-dark sigbro-help-sign">?</span></a>
+        </h1>
+        <div class="row d-none" id="xel-qr-help"><div class="col-12">
+          <p>
+          Use this to generate a QR code for any account.
+          </p>
+        </div></div>
+
+
+        <div class="row"><div class="col-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text xel-input-group-textarea">Paste account address:</span>
+            </div>
+            <textarea class="form-control xel-textarea" aria-label="Paste your text" id="xel-text-for-qr-code"></textarea>
+          </div>
+        </div></div>
+
+        <div class="row"><div class="col-12" style="text-align: right;">
+          <div class="btn-group" role="group" aria-label="button group for generate QR code">
+            <button type="button" class="btn btn-outline-secondary" id="xel-clear-qr-section">Clear</button>
+            <button type="button" class="btn btn-outline-secondary" id="xel-print-qr-section">PRINT</button>
+          </div>
+        </div></div>
+
+      </div> <!-- /container -->
+    </section>
+
+    <section class="d-none d-print-none" id="xel-qr-section">
+      <div class="container xel-section">
+
+        <div class="row">
+          <div class="col-12 col-sm-4" style="text-align: right;" id="xel-qr-qrcode"> </div>
+          <div class="col-12 col-sm-4" style="text-align: center;" >
+            &larr;&nbsp;Here is your QR code<br>
+          </div>
+        </div>
+
+      </div> <!-- /container -->
+    </section>
+
+    <section class="d-none" id="xel-section-print-qr-section">
+      <div class="container-fluid xel-section">
+        <div class="row">
+          <div class="col-6"><div class="card">
+            <div class="card-header"><strong id="xel-new-print-account" class="text-center">Your QR</strong></div>
+            <div class="card-body text-center" id="xel-qr-print-qrcode"></div>
+            <div class="card-footer text-center" id="xel-qr-print-account"></div>
+          </div></div>
+        </div> <!-- /row -->
+      </div> <!-- /container -->
+    </section>
+
+
+
+    <!-- ************************************************* -->
+    <hr class='xel-hr' class="d-print-none" />
+    <a name="Sign"> </a>
+    <!-- ************************************************* -->
+
+    <section class="d-print-none">
+      <div class="container xel-section">
+        <h1 class="display-3">Sign OFFLINE
+        <a href="#" id="xel-offline-help-sign"><span class="badge badge-dark sigbro-help-sign">?</span></a>
+        </h1>
+        <div class="row d-none" id="xel-offline-help"><div class="col-12">
+          <p>
+          <strong>How to make transactions from cold storage (offline) accounts</strong><br>
+          1. Login and initiate a transaction on wallet.xel.org<br>
+          2. Click ‘Advanced’ &rarr; ‘Do Not Broadcast’ &rarr; ‘Do Not Sign’ &rarr; ‘SUBMIT’<br>
+          3. Copy the ‘Unsigned Transaction Bytes’ into a text document, save on USB <br>
+          4. Open Paper Wallet on an offline device, insert the USB key<br>
+          5. Enter your passphrase into the form field below<br>
+          6. Paste the Unsigned Transaction Bytes from USB into the form field below<br>
+          7. Click ‘CHECK’. You will now see your transaction details below the form field - verify them<br>
+          8. Once verified  &rarr; Click ’SIGN’<br>
+          9. Save your signed transaction bytes on the USB key<br>
+          10. On your ONLINE device, insert USB and get the `Signed Transaction Bytes’ <br>
+          11. Paste them into a broadcasting service like xel.org and click ‘BROADCAST’<strong> (Coming soon) </strong> or by using any private or public node on the network.
+          </p>
+        </div></div>
+
+        <div class="row"><div class="col-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Your passphrase: </span>
+            </div>
+            <input class="form-control" type="password" id="xel-sign-passphrase">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" id="xel-sign-passphrase-switcher" type="button">Show</button>
             </div>
           </div>
+        </div></div>
+
+
+        <div class="row"><div class="col-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text xel-input-group-textarea">Unsigned Transaction Bytes: </span>
+            </div>
+            <textarea class="form-control xel-textarea" id="xel-unsigned-bytes"></textarea>
+          </div>
+        </div></div>
+
+        <div class="row"><div class="col-12" style="text-align: right;">
+          <div class="btn-group" role="group" aria-label="button group for offline signing">
+            <button type="button" class="btn btn-outline-secondary" id="xel-clear-sign-transaction">Clear</button>
+            <button type="button" class="btn btn-outline-secondary" id="xel-check-unsigned-tx">Check</button>
+            <button type="button" class="btn btn-outline-secondary" id="xel-sign-transaction">SIGN</button>
+          </div>
+        </div></div>
+
+        <hr />
+
+
+        <div class="row">
+          <div class="col-12 col-sm-6">
+            <div class="input-group">
+              <div class="input-group-prepend"><span class="input-group-text" id="review_1">&nbsp;</span></div><input class="form-control" type="text" id="review_val1" readonly>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="input-group">
+              <div class="input-group-prepend"><span class="input-group-text" id="review_2">&nbsp;</span></div><input class="form-control" type="text" id="review_val2" readonly>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="input-group">
+              <div class="input-group-prepend"><span class="input-group-text" id="review_3">&nbsp;</span></div><input class="form-control" type="text" id="review_val3" readonly>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="input-group">
+              <div class="input-group-prepend"><span class="input-group-text" id="review_4">&nbsp;</span></div><input class="form-control" type="text" id="review_val4" readonly>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="input-group">
+              <div class="input-group-prepend"><span class="input-group-text" id="review_5">&nbsp;</span></div><input class="form-control" type="text" id="review_val5" readonly>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="input-group">
+              <div class="input-group-prepend"><span class="input-group-text" id="review_6">&nbsp;</span></div><input class="form-control" type="text" id="review_val6" readonly>
+            </div>
+          </div>
+
         </div>
-      </div>
-    </main>
-    <footer class="text-muted">
-      <div class="container">
-        <p class="float-right">
-          <a href="#">Back to top</a>
-        </p>
-        <p>Copyright © 2018 <a href="https://xel.org">xel.org</a> - All right Reserved.</p>
-      </div>
-    </footer>
-    <script>
-      function printPage() {
-          window.print();
-      }
-    </script>
-    <script src="js/jquery-2.2.4.min.js"></script>
-    <script src="js/util/converters.js" type="text/javascript"></script>
-    <script src="js/util/xeladdress.js" type="text/javascript"></script>
-    <script src="js/crypto/passphrasegenerator.js"></script>
-    <script src="js/crypto/jssha256.js" type="text/javascript"></script>
-    <script src="js/crypto/jsbn.js" type="text/javascript"></script>
-    <script src="js/crypto/curve25519.js" type="text/javascript"></script>
-    <script src="js/typechecker.js" type="text/javascript"></script>
-    <script src="js/tab.js" type="text/javascript"></script>
-    <script src="js/qrcode.min.js" type="text/javascript"></script>
-    <script src="js/additional.js" type="text/javascript"></script>
-  </body>
-</html>
+
+        <hr>
+
+        <div class="row"><div class="col-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text xel-input-group-textarea">Signed Transaction Bytes: </span>
+            </div>
+            <textarea class="form-control xel-textarea" id="xel-signed-bytes" readonly></textarea>
+          </div>
+        </div></div>
+
+      </div> <!-- /container -->
+    </section>
+  </main>
+
+  <footer class='footer d-print-none'>
+        <div class="container" ><div class="row"><div class="col-12 sigbro-text-footer">
+            <a class="sigbro-href-footer" href="https://github.com/xel-software/xel-paper-wallet/archive/master.zip" target=_blank>Download Paper Wallet</a>
+            <br>
+            Helpdesk: <a class="sigbro-href-footer" href="https://link.xel.org/discord" target=_blank>Discord</a>
+            <br>
+            By using this software you agree to the Terms and Conditions @ <a href="https://github.com/xel-software/xel-paper-wallet/blob/master/README.md" <class="sigbro-href-footer" target=_blank">GitHub</a>
+            <br>
+            <a class="sigbro-href-footer" href="https://xel.org/" target=_blank>Copyright © 2018 xel.org - All right Reserved.</a>
+            </div></div>
+
+
+    </div>
+  </footer>
+
+
+  <script type="text/javascript">
+    var isNode = false;
+  </script>
+
+  <script src="js/3rdparty/jquery.js"></script>
+  <script src="js/3rdparty/jsbn.js"></script>
+  <script src="js/3rdparty/jsbn2.js"></script>
+  <script src="js/crypto/curve25519.js"></script>
+  <script src="js/crypto/crypto-js.js"></script>
+  <script src="js/util/extensions.js"></script>
+  <script src="js/util/converters.js"></script>
+  <script src="js/util/xeladdress.js"></script>
+  <script src="js/nrs.constants.js"></script>
+  <script src="js/nrs.util.js"></script>
+  <script src="js/nrs.encryption.js"></script>
+  <script src="js/crypto/passphrasegenerator.js"></script>
+  <script src="js/xel-parse.js"></script>
+  <script src="js/xel-bridge.js"></script>
+  <script src="js/3rdparty/jquery.qrcode.min.js"></script>
+
+</body></html>
