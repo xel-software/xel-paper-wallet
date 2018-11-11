@@ -31,7 +31,7 @@ store your passphrase and account id in a safe location (print it).
 
 ### online
 
-https://xel-software.github.io/xel-paper-wallet/
+-------------------------------
 
 # changelog
 
