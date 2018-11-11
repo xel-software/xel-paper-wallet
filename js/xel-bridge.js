@@ -332,7 +332,7 @@ $('#xel-sign-passphrase-switcher').click( function(e) {
 //NRS.constants.MINTING_HASH_ALGORITHMS = response.mintingHashAlgorithms;
 //NRS.constants.MAX_TAGGED_DATA_DATA_LENGTH = response.maxTaggedDataDataLength;
 //NRS.constants.MAX_PRUNABLE_MESSAGE_LENGTH = response.maxPrunableMessageLength;
-NRS.constants.EPOCH_BEGINNING = 1514764800000;
+NRS.constants.EPOCH_BEGINNING = 1385294400000;
 //NRS.constants.REQUEST_TYPES = response.requestTypes;
 //NRS.constants.API_TAGS = response.apiTags;
 //NRS.constants.SHUFFLING_STAGES = response.shufflingStages;
