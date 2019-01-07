@@ -1,41 +1,27 @@
-# XEL Paper Wallet Generator
+<p align="center">
+<img src="3400x3400.png" width="100">
+</p>
 
-XEL Paper Wallet Generator is way to create a new XEL account.
+# XEL Paper Wallet
 
-# how to use it ?
+* OFFLINE creation of accounts for cold storage. With XEL Paper Wallet, the passphrase to your brain wallet is NEVER exposed to anyone on the internet .
 
-### offline (recommended)
+* Essentially, sending XEL and using Smart Transactions on the XEL Platform is 100% safe, as all can be signed OFFLINE. You can send XEL, send public or encrypted messages .
 
-[download the zip file](../../archive/master.zip) and open `index.html` in your browser.
+# Software Futurity
 
-store your passphrase and account id in a safe location (print it).
+* Account Creation
+* Login to Cold Storage Account
+* Send Xel
+* Signing
+* Broadcast Transaction
+* Token Generation
 
-:warning: if you loose your passphrase, you won't be able to access your funds !
+# Info 
 
+An account you create with this offline paper wallet generator is an account which exists on the xel blockchain. 
+Your xel account is yours, not ours. 
+XEL team cannot be held responsible if you loose your xel passphrase or if a 3rd party gets a hold of it, or for any other consequence of you having lost it. 
+YOUR XEL PASSPHRASE IS THE ONLY WAY TO ACCESS YOUR XEL ACCOUNT. KEEP IT SAFE! We do NOT have access to your passphrase, so we CANNOT keep backups of your passphrase for you.
 
-### online
-
-https://xel-software.github.io/xel-paper-wallet/
-
-# changelog
-
-### Version 0.3
-
-- GUI improved  
-
-### Version 0.2
-
-- Print page after its generated
-
-### Version 0.1
-
-- QR Code for new Account passphrase
-- Generation random passwords and calculate public key and XEL-address in Reed-Solomon format
-
-
-# credits
-
-Some part of source code was taken from:
-
-- https://github.com/jonesnxt/jay-client
-- https://github.com/jeromeetienne/jquery-qrcode
+<a href="https://github.com/xel-community/xel-paper-wallet/blob/master/LICENSE.txt" title=""><img src="http://img.shields.io/:license-mit-blue.svg" alt="license"></a>
