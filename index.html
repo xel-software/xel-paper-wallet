@@ -13192,14 +13192,14 @@ $("document").ready(function() {
 
 
 	$("#modal_cast_bytes").on("input propertychange", function() {
-		$.post("http://xel.org:17876/nxt?requestType=parseTransaction", {"transactionBytes":$("#modal_cast_bytes").val()}, function(data) {
+		$.post("http://wallet.xel.org/nxt?requestType=parseTransaction", {"transactionBytes":$("#modal_cast_bytes").val()}, function(data) {
 			$("#modal_cast_info").html(formatJson(data));
 		}, 'text');
 	});
 
 	$("#modal_cast_cast").click(function() {
 		// time to broadcast...
-		$.post("http://xel.org:17876/nxt?requestType=broadcastTransaction", {"transactionBytes":$("#modal_cast_bytes").val()}, function(data) {
+		$.post("http://wallet.xel.org/nxt?requestType=broadcastTransaction", {"transactionBytes":$("#modal_cast_bytes").val()}, function(data) {
 			$("#modal_resp_data").html(formatJson(data));
 			$("#modal_resp").modal("show");
 		}, 'text');
